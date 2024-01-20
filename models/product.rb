@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-#   Product class
-#   - price(Float): product's price
-#   - code(String): product's code
-#   - name(String): product's name
+# Product class
+# - price(Float): product's price
+# - code(String): product's code
+# - name(String): product's name
 class Product
   class WrongArgumentError < StandardError; end
 

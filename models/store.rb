@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'product'
-#   Store class: A class to store the products, and discount rules
+# Store class: A class to store the products, and discount rules
 class Store
   class WrongArgumentError < StandardError; end
   class InvalidProductError < StandardError; end

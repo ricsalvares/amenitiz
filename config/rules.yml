@@ -1,0 +1,16 @@
+GR1:
+  name: "CEO Rule"
+  min_amount: 2
+  round: 'floor'
+  new_price:
+    rate: 0.5
+SR1:
+  name: "COO rule"
+  min_amount: 3
+  new_price:
+    value: 4.5
+CF1:
+  name: "VP of Engineering rule"
+  min_amount: 3
+  new_price:
+    rate: 0.6666666666

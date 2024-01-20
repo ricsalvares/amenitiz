@@ -1,0 +1,12 @@
+Product1:
+  name: 'Green Tea'
+  code: GR1
+  price: 3.11
+Product2:
+  name: Strawberries
+  code: SR1
+  price: 5.0
+Product3:
+  name: Coffee
+  code: CF1
+  price: 11.23
