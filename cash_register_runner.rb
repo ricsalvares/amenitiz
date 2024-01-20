@@ -14,8 +14,6 @@
 
 # CashRegisterRunner class
 class CashRegisterRunner
-  def initialize; end
-
   def run
     'Ran!'
   end
