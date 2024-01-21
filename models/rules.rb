@@ -12,4 +12,8 @@ class Rules
   def initialize
     @rules = YAML.load_file('./config/rules.yml')
   end
+
+  def for(product_code)
+    @rules[product_code]
+  end
 end

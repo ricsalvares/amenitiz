@@ -1,0 +1,4 @@
+product_list_codes,expected_total
+GR1;GR1,3.11
+SR1;SR1;GR1;SR1,16.61
+GR1;CF1;SR1;CF1;CF1,30.57

@@ -3,9 +3,13 @@
 require_relative '../cash_register_runner'
 
 RSpec.describe CashRegisterRunner do
-  subject { described_class.new.run }
+  subject { described_class.new }
 
   describe 'run' do
-    it { is_expected.to eq 'Ran!' }
+    it { expect(subject.run).to eq 'Ran!' }
+  end
+
+  describe 'init_store' do
+    pending 'instantiates a cash register with its dependent object'
   end
 end
