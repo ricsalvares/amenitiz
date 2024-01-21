@@ -3,6 +3,7 @@
 require_relative '../../models/store'
 require_relative '../../models/product'
 require 'spec_helper'
+
 RSpec.describe Store do
   subject { described_class.new(**params) }
   let(:params) { {} }
@@ -13,17 +14,19 @@ RSpec.describe Store do
 
       it { expect { subject }.to raise_error(Store::WrongArgumentError) }
     end
+
+    it 'loads the rules' do
+      expect(Rule).to receive(:load_rules_from_config_file).and_call_original
+      subject
+    end
   end
 
-  context '#products' do
+  describe '#products' do
     it { expect(subject.products).to eq({}) }
   end
 
-  context '#rules' do
-    let(:params) { super().merge(rules:) }
-    let(:rules) { [1, 2, 3] } # So far any collection is enough; To be changed
-
-    it { expect(subject.rules).to eq rules }
+  describe '#rules' do
+    it { expect(subject.rules).not_to be_empty }
   end
 
   describe '#register_product' do

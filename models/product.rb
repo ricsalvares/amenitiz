@@ -6,6 +6,14 @@
 # - name(String): product's name
 class Product
   class WrongArgumentError < StandardError; end
+  class << self
+    def load_products_from_config_file
+      product_attributes = YAML.load_file('./config/products.yml')
+      product_attributes.map do |_, attributes|
+        Product.new(**attributes.transform_keys(&:to_sym))
+      end
+    end
+  end
 
   def initialize(name:, code:, price:)
     raise WrongArgumentError, "name can't be blank/nil" if name.nil? || name.empty?

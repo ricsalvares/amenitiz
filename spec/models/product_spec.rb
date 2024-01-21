@@ -10,6 +10,17 @@ RSpec.describe Product do
   let(:price) { 3.99 }
   let(:code) { 'PN1' }
 
+  describe '.load_products_from_config_file' do
+    subject { described_class.load_products_from_config_file }
+
+    it 'reads the config file containing the products attributes' do
+      expect(YAML).to receive(:load_file)
+        .with('./config/products.yml')
+        .and_call_original
+      expect(subject.map(&:code)).to match(%w[GR1 SR1 CF1])
+    end
+  end
+
   describe 'initialize' do
     context 'when invalid params are provided' do
       shared_examples 'product with invalid params' do |att|

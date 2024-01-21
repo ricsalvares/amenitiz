@@ -3,11 +3,19 @@
 require_relative '../../services/cash_register'
 require_relative '../../models/store'
 require_relative '../../models/product'
+
+require 'yaml'
 require 'spec_helper'
 
-RSpec.describe CashRegister do
+RSpec.shared_examples 'calculating total with discount rules applied' do |product_list, expected_total|
+  before { product_list.each { cr.scan(_1) } }
+  it { expect(subject.total).to eq(expected_total) }
+end
+
+RSpec.describe Services::CashRegister do
   subject(:cr) { described_class.new(store) }
-  let(:store) { Store.new }
+  let(:store) { Store.new(products:) }
+  let(:products) { [] }
 
   it { is_expected.to delegate_method(:products).to(:store) }
   it { is_expected.to delegate_method(:rules).to(:store) }
@@ -15,7 +23,7 @@ RSpec.describe CashRegister do
   describe 'initialize' do
     let(:store) { 1 }
     it 'raises error when store is not provided' do
-      expect { subject }.to raise_error CashRegister::WrongArgumentError
+      expect { subject }.to raise_error Services::CashRegister::WrongArgumentError
     end
   end
 
@@ -32,16 +40,16 @@ RSpec.describe CashRegister do
 
     context 'when the product is not registered in the store' do
       it 'raises error while scanning' do
-        expect { subject.scan('invalid_code') }.to raise_error CashRegister::InvalidProductError
+        expect { subject.scan('invalid_code') }.to raise_error Services::CashRegister::InvalidProductError
       end
     end
   end
 
-  describe '#gross_total' do
-    context 'when there is product' do
+  describe '#total' do
+    context 'when there is no discount rule for the products' do
       let(:apple) { Product.new(name: 'Apple', code: 'APL1', price: 1.99) }
       let(:lime) { Product.new(name: 'Lime', code: 'LM1', price: 0.24) }
-      let(:store) { Store.new(products: [apple, lime]) }
+      let(:products) { [apple, lime] }
 
       before do
         2.times { cr.scan(apple.code) }
@@ -49,9 +57,18 @@ RSpec.describe CashRegister do
       end
 
       it 'calculates the gross total (without discount)' do
-        expected_gross_total = (2 * apple.price) + (3 * lime.price)
-        expect(cr.gross_total).to eq(expected_gross_total)
+        expected_total = (2 * apple.price) + (3 * lime.price)
+        expect(cr.total).to eq(expected_total)
       end
+    end
+
+    context 'when there are discount rules' do
+      let(:products) { Product.load_products_from_config_file }
+
+      # Examples from task description
+      it_behaves_like 'calculating total with discount rules applied', %w[GR1 GR1], 3.11
+      it_behaves_like 'calculating total with discount rules applied', %w[SR1 SR1 GR1 SR1], 16.61
+      it_behaves_like 'calculating total with discount rules applied', %w[GR1 CF1 SR1 CF1 CF1], 30.57
     end
   end
 end
