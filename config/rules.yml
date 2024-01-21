@@ -2,7 +2,7 @@ GR1:
   name: "CEO Rule"
   min_amount: 2
   relative_discount: 0.5
-  round: :floor
+  round: :ceil
 SR1:
   name: "COO rule"
   min_amount: 3
