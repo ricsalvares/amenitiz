@@ -20,7 +20,7 @@ class Rule
   end
 
   def initialize(params)
-    @round = params[:round]&.to_sym || :floor
+    @round = params[:round]
     @product_code = params[:product_code]
     @min_amount = params[:min_amount]
     @name = params[:name]
@@ -34,29 +34,29 @@ class Rule
     product_code == code && amount >= min_amount
   end
 
-  def apply_discount(...)
-    validate_product_code!(...)
-    apply_relative_discount(...) || apply_absolute_discount(...)
-  end
+  # def apply_discount(...)
+  #   validate_product_code!(...)
+  #   apply_relative_discount(...) || apply_absolute_discount(...)
+  # end
 
-  private
+  # private
 
-  def apply_relative_discount(product, amount)
-    return unless relative_discount
+  # def apply_relative_discount(product, amount)
+  #   return unless relative_discount
 
-    partial_amount = ((1 - relative_discount) * amount)
-    partial_amount.send(round || :ceil) * product.price
-  end
+  #   partial_amount = ((1 - relative_discount) * amount)
+  #   partial_amount.send(round || :ceil) * product.price
+  # end
 
-  def apply_absolute_discount(product, amount)
-    return unless absolute_discount
+  # def apply_absolute_discount(product, amount)
+  #   return unless absolute_discount
 
-    (product.price - absolute_discount) * amount
-  end
+  #   (product.price - absolute_discount) * amount
+  # end
 
-  def validate_product_code!(product, _)
-    return if product.code == product_code
+  # def validate_product_code!(product, _)
+  #   return if product.code == product_code
 
-    raise ProductCodeMismatchError, "Rule cannot be applied to product: #{product}"
-  end
+  #   raise ProductCodeMismatchError, "Rule cannot be applied to product: #{product}"
+  # end
 end

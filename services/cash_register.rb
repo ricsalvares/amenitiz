@@ -6,7 +6,7 @@ require_relative 'discount_rule_handler'
 require 'forwardable'
 
 module Services
-  # Basket class: Used to scan and increment products count
+  # CashRegister Service: Used to scan products, incrementing the products amount in a basket
   class CashRegister
     extend Forwardable
 
@@ -37,6 +37,7 @@ module Services
       basket.map do |code, amount|
         discount_rule_handler.apply_discount_for(code, amount)
       end.sum
+      .round(2)
     end
 
     private

@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 require_relative '../models/store'
+require_relative './discount_calculator'
 
 require 'forwardable'
 
 module Services
-  # Basket class: Used to scan and increment products count
+  # DiscountRuleHandler Service: Used to check whether a given product_code has any discount rule to be applied
   class DiscountRuleHandler
     extend Forwardable
 
@@ -23,7 +24,8 @@ module Services
 
     def apply_discount_for(code, amount)
       product = products[code]
-      rule_by(product, amount)&.apply_discount(product, amount) || (product.price * amount)
+      rule = rule_by(product, amount)
+      DiscountCalculator.new(product, amount, rule).call
     end
 
     private
