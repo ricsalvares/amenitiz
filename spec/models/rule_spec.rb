@@ -44,37 +44,4 @@ RSpec.describe Rule do
       end
     end
   end
-
-  describe '#apply' do
-    let(:params) do
-      {
-        round: :ceil,
-        product_code:,
-        min_amount: 2,
-        name: 'test rule',
-        relative_discount:,
-        absolute_discount:
-      }
-    end
-    let(:product_code) { 'GR1' }
-    let(:absolute_discount) { nil }
-    let(:relative_discount) { nil }
-
-    context 'when relative discount exists' do
-      let(:relative_discount) { 0.5 }
-
-      xit 'calculates the discount properly' do
-        product = Product.new(name: 'test', code: product_code, price: 3.11)
-        expect_value = 3 * product.price
-        expect(subject.apply_discount(product, 5)).to eq(expect_value)
-      end
-    end
-
-    context 'when there is no product to apply rule' do
-      xit 'raises error' do
-        product = Product.new(name: 'test', code: '111', price: 1.11)
-        expect { subject.apply_discount(product, 2) }.to raise_error Rule::ProductCodeMismatchError
-      end
-    end
-  end
 end

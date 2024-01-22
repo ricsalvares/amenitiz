@@ -9,8 +9,8 @@ module Services
     class WrongArgumentError < StandardError; end
 
     def initialize(product, amount, rule = nil)
-      raise WrongArgumentError.new("Please provide a Product (#{product})") unless  product.is_a?(Product)
-      raise WrongArgumentError.new("Please provide a Rule (#{rule})") if rule && !rule.is_a?(Rule)
+      raise WrongArgumentError, "Please provide a Product (#{product})" unless product.is_a?(Product)
+      raise WrongArgumentError, "Please provide a Rule (#{rule})" if rule && !rule.is_a?(Rule)
 
       @product = product
       @amount = amount
@@ -27,6 +27,7 @@ module Services
     private
 
     attr_reader :rule, :product, :amount
+
     def apply_relative_discount
       return unless rule.relative_discount
 

@@ -37,7 +37,7 @@ module Services
       basket.map do |code, amount|
         discount_rule_handler.apply_discount_for(code, amount)
       end.sum
-      .round(2)
+         .round(2)
     end
 
     private

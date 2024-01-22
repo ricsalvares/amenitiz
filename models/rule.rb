@@ -33,30 +33,4 @@ class Rule
   def apply?(code, amount)
     product_code == code && amount >= min_amount
   end
-
-  # def apply_discount(...)
-  #   validate_product_code!(...)
-  #   apply_relative_discount(...) || apply_absolute_discount(...)
-  # end
-
-  # private
-
-  # def apply_relative_discount(product, amount)
-  #   return unless relative_discount
-
-  #   partial_amount = ((1 - relative_discount) * amount)
-  #   partial_amount.send(round || :ceil) * product.price
-  # end
-
-  # def apply_absolute_discount(product, amount)
-  #   return unless absolute_discount
-
-  #   (product.price - absolute_discount) * amount
-  # end
-
-  # def validate_product_code!(product, _)
-  #   return if product.code == product_code
-
-  #   raise ProductCodeMismatchError, "Rule cannot be applied to product: #{product}"
-  # end
 end
