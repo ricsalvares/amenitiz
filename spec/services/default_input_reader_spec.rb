@@ -14,7 +14,8 @@ RSpec.describe Services::DefaultInputReader do
         'example: CODE1;CODE2',
         'Type expected total amount: '
       ].join("\n")
-      input = StringIO.new('CF1')
+
+      input = StringIO.new("CF1\n11.23")
       $stdin = input
       # TODO: test/mock STDIN gets call
       expect { subject.read }.to output(expected_message).to_stdout

@@ -18,6 +18,9 @@ def input_source
   "Please run './cash_register_runner.rb --file [path/to/csv/file]'"
 end
 
-puts 'running'
-# input_source
-puts Services::CashRegisterRunner.new(input_source).run
+input = input_source
+if input.is_a?(String)
+  puts input
+else
+  Services::CashRegisterRunner.new(input).run
+end

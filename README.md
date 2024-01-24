@@ -57,6 +57,15 @@ The project can be run passing the directive `--file file_name.csv`, file_name.c
 
 If no file is provided, please just follow the instructions.
 
+To ensure quality and a standard of code it was used the gem `rubocop`, to check it please run 
+```
+rubocop
+```
+And the last but not least, to run the test suite, please run 
+
+```
+rspec
+```
 ## Files
 
 #### `models/*.rb`
@@ -92,5 +101,3 @@ To avoid mismatch of ruby version and make it more smooth and transparent for th
 
 #### Improve tests on DefaultInputRead
 It was a bit tricky to find out how to test `gets` method call, I've tried some attempts but with no success, this could be definitely improved
-
-
